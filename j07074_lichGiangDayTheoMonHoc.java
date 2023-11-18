@@ -1,59 +1,59 @@
 import java.io.*;
 import java.util.*;
 
-public class j07074_lichGiangDayTheoMonHoc {
+class lich {
+    private int thu, kip;
+    private String gv, room, code, mcode;
 
-    static class lich {
-        int thu, kip;
-        String gv, room, code, mcode;
+    public lich(int i, String mcode, int thu, int kip, String gv, String room) {
+        this.code = String.format("HP%03d", i);
+        this.mcode = mcode;
+        this.thu = thu;
+        this.kip = kip;
+        this.gv = gv;
+        this.room = room;
+    }
+    @Override
+    public String toString() {
+        return code + " " + thu + " " + kip + " " + gv + " " + room;
+    }
+}
 
-        public lich(int i, String mcode, int thu, int kip, String gv, String room) {
-            this.code = String.format("HP%03d", i);
-            this.mcode = mcode;
-            this.thu = thu;
-            this.kip = kip;
-            this.gv = gv;
-            this.room = room;
-        }
-        @Override
-        public String toString() {
-            return code + " " + thu + " " + kip + " " + gv + " " + room;
-        }
+class mh {
+    private ArrayList<lich> a;
+    private String code, name;
+    private int num;
+
+    public mh(String code, String name, int num) {
+        a = new ArrayList<>();
+        this.code = code;
+        this.name = name;
+        this.num = num;
     }
 
-    static class mh {
-        ArrayList<lich> a;
-        String code, name;
-        int num;
-
-        public mh(String code, String name, int num) {
-            a = new ArrayList<>();
-            this.code = code;
-            this.name = name;
-            this.num = num;
-        }
-
-        public void sort() {
-            a.sort((lich x, lich y) -> {
-                if (x.thu == y.thu) {
-                    if (x.kip == y.kip)
-                        return x.gv.compareTo(y.gv);
-                    return x.kip - y.kip;
-                }
-                return x.thu - y.thu;
-            });
-        }
-
-        @Override
-        public String toString() {
-            String s = String.format("LICH GIANG DAY MON %s:\n", name);
-            String[] arr = new String[a.size()];
-            for (int i = 0; i < arr.length; i++) {
-                arr[i] = a.get(i).toString();
+    public void sort() {
+        a.sort((lich x, lich y) -> {
+            if (x.thu == y.thu) {
+                if (x.kip == y.kip)
+                    return x.gv.compareTo(y.gv);
+                return x.kip - y.kip;
             }
-            return s + String.join("\n", arr);
-        }
+            return x.thu - y.thu;
+        });
     }
+
+    @Override
+    public String toString() {
+        String s = String.format("LICH GIANG DAY MON %s:\n", name);
+        String[] arr = new String[a.size()];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = a.get(i).toString();
+        }
+        return s + String.join("\n", arr);
+    }
+}
+
+public class j07074_lichGiangDayTheoMonHoc {
 
     public static void main(String[] args) throws IOException {
         Scanner mh_sc = new Scanner(new File("MONHOC.in"));
